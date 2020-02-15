@@ -15,9 +15,24 @@
   register: ec2_subnet_facts
   check_mode: no
 
-- name: Provision a set of instance
+- name: key作成
+  ec2_key:
+    name: "{{ aws.vpc.key.name }}"
+    region: "{{ aws.common.region }}"
+  register: keypair_regst
+
+- name: 認証ファイル作成
+  file: path=~/.ssh/{{ keypair_regst.key.name }}.pem
+    state=touch
+    mode=0600
+
+- name: "認証鍵にデータを追加する"
+  shell: echo "{{ keypair_regst.key.private_key }}" > ~/.ssh/{{ aws.vpc.key.name }}.pem
+  when: keypair_regst.key.private_key is defined
+
+- name: ec2作成
   ec2:
-    #    key_name: "{{ my_vars.ec2.key_name }}"
+    key_name: "{{ aws.vpc.key.name }}"
     group_id: "{{ ec2_group_facts.security_groups[0].group_id }}"
     vpc_subnet_id: "{{ ec2_subnet_facts.subnets[0].id }}"
     assign_public_ip: yes

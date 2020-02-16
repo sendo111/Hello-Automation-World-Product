@@ -27,6 +27,10 @@ aws:
           ports:
             - 22
           cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          ports:
+            - 443
+          cidr_ip: 0.0.0.0/0
     ec2:
       name: Hello_Auto_EC2
       instance_type: t2.micro

@@ -24,9 +24,9 @@
 - name: 認証ファイル作成
   file: path=~/.ssh/{{ keypair_regst.key.name }}.pem
     state=touch
-    mode=0600
+    mode=0700
 
-- name: "認証鍵にデータを追加する"
+- name: 認証鍵にデータを追加する
   shell: echo "{{ keypair_regst.key.private_key }}" > ~/.ssh/{{ aws.vpc.key.name }}.pem
   when: keypair_regst.key.private_key is defined
 

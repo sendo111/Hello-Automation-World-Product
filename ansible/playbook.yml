@@ -9,9 +9,10 @@
     - name: Refresh inventory
       meta: refresh_inventory
 
-- name: ec2 updating
-  hosts: localhost
+- name: aws ec2 setup
+  hosts: ec2
   user: ubuntu
+  become: true
   gather_facts: true
   roles:
     - update

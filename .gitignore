@@ -121,3 +121,9 @@ dmypy.json
 # End of https://www.gitignore.io/api/django
 .idea/
 .vscode/
+
+
+# mysql
+.env
+./mysql/*
+./sql/*

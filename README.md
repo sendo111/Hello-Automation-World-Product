@@ -8,6 +8,9 @@
 ## Versions
  - python 3.8.0
  - Django 2.2
+ - nginx 1.16.1
+ - uWSGI 2.0.18
+ - mysql 8.0
 
 ---
 ## アプリ起動方法

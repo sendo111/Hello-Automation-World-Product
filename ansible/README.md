@@ -1,13 +1,22 @@
-# Ansible-playbookのテスト方法
+# Ansible-playbook のテスト方法
 
 ## Version
 
-* Ansible 2.9.4
-* boto3 1.11.13
+- Ansible 2.9.4
+- boto3 1.11.13
 
-## playbookの実行方法
+## playbook の実行方法
 
-### ansible.cfgの作成
+### 環境変数の設定
+
+AWS のアクセスキーとシークレットアクセスキーを環境変数としてセットします。
+
+```
+% export AWS_ACCESS_KEY_ID=アクセスキー
+% export AWS_SECRET_ACCESS_KEY=シークレットアクセスキー
+```
+
+### ansible.cfg の作成
 
 ```
 [defaults]
@@ -20,7 +29,7 @@ private_key_file=~/.ssh/「Playbookで作成するSSHキー名を入れる」
 become = False
 ```
 
-### Playbook起動コマンド
+### Playbook 起動コマンド
 
 ```
 # ansible-playbook playbook.yml

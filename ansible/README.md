@@ -2,7 +2,7 @@
 
 ## Version
 
-＊ Ansible 2.9.4
+* Ansible 2.9.4
 * boto3 1.11.13
 
 ## playbookの実行方法

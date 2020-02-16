@@ -59,7 +59,20 @@ WSGI_APPLICATION = 'haw.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+'''
+import pymysql
+pymysql.install_as_MySQLdb()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'app',
+        'USER': 'ruser',
+        'PASSWORD': 'Xv8eFwmD',
+        'HOST': 'mysql',
+        'PORT': '3306',
+    }
+}
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

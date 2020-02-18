@@ -13,7 +13,7 @@ services:
       - haw
 
   mysql:
-    image: mysql:8.0
+    image: mysql:5.6
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     container_name: mysql
     ports:
@@ -27,12 +27,12 @@ services:
     # 一旦ベタ書き
       MYSQL_ROOT_PASSWORD: Xv8eFwmD
       MYSQL_DATABASE: app
-      MYSQL_USER: ruser
-      MYSQL_PASSWORD: Xv8eFwmD
+      MYSQL_USER: user
+      MYSQL_PASSWORD: hogeXv8eFwmD
       TZ: 'Asia/Tokyo'
-    volumes:  # [wip]自動作成される？調整中
-      - ./mysql:/var/lib/mysql
-      - ./sql:/docker-entrypoint-initdb.d
+#    volumes:  # [wip]自動作成される？調整中
+#      - ./mysql:/var/lib/mysql
+#      - ./sql:/docker-entrypoint-initdb.d
 
 #[wip]アプリ用ディレクトリ調整中
   haw: #Hello-Automation-Worldの略でこの名称にしています

@@ -30,9 +30,9 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: hogeXv8eFwmD
       TZ: 'Asia/Tokyo'
-#    volumes:  # [wip]自動作成される？調整中
-#      - ./mysql:/var/lib/mysql
-#      - ./sql:/docker-entrypoint-initdb.d
+    volumes:  # [wip]自動作成される？調整中
+      - ./mysql:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
 
 #[wip]アプリ用ディレクトリ調整中
   haw: #Hello-Automation-Worldの略でこの名称にしています

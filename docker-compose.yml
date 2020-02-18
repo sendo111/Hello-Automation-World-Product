@@ -25,13 +25,14 @@ services:
 #      MYSQL_USER: ${MYSQL_USER}
 #      MYSQL_PASSWORD: {MYSQL_PASSWORD}
     # 一旦ベタ書き
-      MYSQL_ROOT_PASSWORD: rootpasswd
-      MYSQL_DATABASE: database
-      MYSQL_USER: userpasswd
-      MYSQL_PASSWORD: mysqlpasswd
-#    volumes:  # [wip]自動作成される？調整中
-#      - ./mysql:/var/lib/mysql
-#      - ./sql:/docker-entrypoint-initdb.d
+      MYSQL_ROOT_PASSWORD: Xv8eFwmD
+      MYSQL_DATABASE: app
+      MYSQL_USER: ruser
+      MYSQL_PASSWORD: Xv8eFwmD
+      TZ: 'Asia/Tokyo'
+    volumes:  # [wip]自動作成される？調整中
+      - ./mysql:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
 
 #[wip]アプリ用ディレクトリ調整中
   haw: #Hello-Automation-Worldの略でこの名称にしています

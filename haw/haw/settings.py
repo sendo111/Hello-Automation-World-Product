@@ -59,6 +59,24 @@ WSGI_APPLICATION = 'haw.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+'''
+import pymysql
+pymysql.install_as_MySQLdb()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tips',
+        'USER': 'tipsuser',
+        'PASSWORD': 'tipspass',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    }
+}
+'''
+
 
 DATABASES = {
     'default': {

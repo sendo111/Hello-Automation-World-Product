@@ -1,4 +1,4 @@
-version: 2.1
+version: 2.0
 jobs:
   build:
     machine:
@@ -39,8 +39,8 @@ jobs:
           name: aws certification
           command:
       - run:
-        name: execute deploy
-        command:
+          name: execute deploy
+          command:
 
 workflows:
   version: 2
@@ -50,10 +50,10 @@ workflows:
       - deploy:
         # The deployment job is executed after the completion of the execution of the build job.
         # If requires is not specified, build and deploy jobs are executed in parallel.
-        requires:
-          - build
-        filters:
-          # You can set the timing to execute CIrcleCI for each branch.
-          branches:
-            # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える
-            only: feature/HAW-42
+          requires:
+            - build
+          filters:
+            # You can set the timing to execute CIrcleCI for each branch.
+            branches:
+              # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える
+              only: feature/HAW-42

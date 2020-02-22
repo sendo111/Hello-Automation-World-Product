@@ -36,7 +36,7 @@ services:
     volumes:
         - ./haw:/haw
     expose:
-      - "8000"
+      - "8001"
     depends_on:
       - mysql
     tty: true

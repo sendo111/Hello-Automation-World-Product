@@ -13,9 +13,9 @@ jobs:
       - run:
           name: ls -sla
           command: ls -sla
-      - run:
-          name: execute django makemigrations
-          command: docker-compose run haw ./manage.py makemigrations
+      # - run:
+      #     name: execute django makemigrations
+      #     command: docker-compose run haw ./manage.py makemigrations
       - run:
           name: execute django migrate
           command: docker-compose run haw ./manage.py migrate

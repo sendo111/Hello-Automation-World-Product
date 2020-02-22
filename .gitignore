@@ -123,8 +123,9 @@ dmypy.json
 .idea/
 .vscode/
 
-
 # mysql
 .env
 ./mysql/*
 ./sql/*
+
+*/.DS_Store

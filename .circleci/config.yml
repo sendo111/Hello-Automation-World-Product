@@ -12,16 +12,16 @@ jobs:
           command: docker-compose up -d
       - run:
           name: execute django makemigrations
-          command: docker-compose run haw ./manage.py makemigrations
+          command: docker-compose run haw ./haw/manage.py makemigrations
       - run:
           name: execute django migrate
-          command: docker-compose run haw ./manage.py migrate
+          command: docker-compose run haw ./haw/manage.py migrate
       - run:
           name: execute django unittest
-          command: docker-compose run haw ./manage.py test
+          command: docker-compose run haw ./haw/manage.py test
       - run:
           name: execute django flake8
-          command: docker-compose run haw flake8 ./
+          command: docker-compose run haw flake8 ./haw/
       - run:
           name: docker-compose down
           command: docker-compose down

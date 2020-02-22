@@ -19,17 +19,17 @@ jobs:
       - run:
           name: execute django migrate
           command: docker-compose run haw ./manage.py migrate
-      - run:
-          name: db user grant all privileges
-          command: |
-            docker exec mysql bash
-            mysql -uroot -pXv8eFwmD
-            GRANT ALL PRIVILEGES ON test_app.* TO 'user'@'%';
-            flush privileges;
-            exit;
-      - run:
-          name: execute django unittest
-          command: docker-compose run haw ./manage.py test
+      # - run:
+      #     name: db user grant all privileges
+      #     command: |
+      #       docker exec mysql bash
+      #       mysql -uroot -pXv8eFwmD
+      #       GRANT ALL PRIVILEGES ON test_app.* TO 'user'@'%';
+      #       flush privileges;
+      #       exit;
+      # - run:
+      #     name: execute django unittest
+      #     command: docker-compose run haw ./manage.py test
       - run:
           name: execute django flake8
           command: docker-compose run haw flake8 ./

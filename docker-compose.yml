@@ -31,12 +31,12 @@ services:
 
   haw: #Hello-Automation-Worldの略でこの名称にしています
     build: ./haw
-    command: uwsgi --socket :8001 --module haw.wsgi
+    command: uwsgi --socket :8000 --module haw.wsgi
     container_name: haw
     volumes:
         - ./haw:/haw
     expose:
-      - "8001"
+      - "8000"
     depends_on:
       - mysql
     tty: true

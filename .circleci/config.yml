@@ -11,8 +11,8 @@ jobs:
           name: docker-compose up
           command: docker-compose up -d
       - run:
-        name: sleep for launch db to migrate at Django
-        command: sleep 10
+          name: sleep for launch db to migrate at Django
+          command: sleep 10
       - run:
           name: execute django makemigrations
           command: docker-compose run haw ./manage.py makemigrations

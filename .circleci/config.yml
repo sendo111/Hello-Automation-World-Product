@@ -25,7 +25,8 @@ jobs:
             docker exec mysql bash
             mysql -uroot -pXv8eFwmD
             GRANT ALL PRIVILEGES ON test_app.* TO 'user'@'%';
-            flush privileges
+            flush privileges;
+            exit;
       - run:
           name: execute django unittest
           command: docker-compose run haw ./manage.py test

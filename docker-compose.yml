@@ -35,8 +35,6 @@ services:
     container_name: haw
     volumes:
         - ./haw:/haw
-        - ./setup.cfg:/haw
-
     expose:
       - "8000"
     depends_on:

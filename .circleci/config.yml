@@ -22,6 +22,7 @@ jobs:
       - run:
           name: db user grant all privileges
           command: |
+            docker exec -it mysql bash
             mysql -uroot -pXv8eFwmD
             GRANT ALL PRIVILEGES ON test_app.* TO 'user'@'%';
             flush privileges

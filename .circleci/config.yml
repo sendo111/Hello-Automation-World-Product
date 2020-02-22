@@ -22,9 +22,9 @@ jobs:
       # - run:
       #     name: execute django unittest
       #     command: docker-compose run haw ./manage.py test
-      - run:
-          name: execute django flake8
-          command: docker-compose run haw flake8 ./
+      # - run:
+      #     name: execute django flake8
+      #     command: docker-compose run haw flake8 ./
       - run:
           name: docker-compose down
           command: docker-compose down

@@ -8,31 +8,25 @@ jobs:
     steps:
       - run:
           name: docker-compose up
-          command: sleep 1
-          # command: docker-compose up -d
-      # - run:
-      #     name: wait 10 seconds to start docker-compose
-      #     command: sleep 10
+          command: docker-compose up -d
+      - run:
+          name: wait 10 seconds to start docker-compose
+          command: sleep 10
       - run:
           name: execute django makemigrations
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py makemigrations
+          command: docker-compose run haw ./manage.py makemigrations
       - run:
           name: execute django migrate
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py migrate
+          command: docker-compose run haw ./manage.py migrate
       - run:
           name: execute django unittest
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py test
+          command: docker-compose run haw ./manage.py test
       - run:
           name: execute django flake8
-          command: sleep 1
-          # command: docker-compose run haw flake8 ./
+          command: docker-compose run haw flake8 ./
       - run:
           name: docker-compose down
-          command: sleep 1
-          # command: docker-compose down
+          command: docker-compose down
 
   exec-ansible:
     machine:

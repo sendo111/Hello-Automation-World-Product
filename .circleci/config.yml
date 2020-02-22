@@ -11,9 +11,6 @@ jobs:
           name: docker-compose up
           command: docker-compose up -d
       - run:
-          name: wait 10 seconds to start docker-compose
-          command: sleep 10
-      - run:
           name: execute django makemigrations
           command: docker-compose run haw ./manage.py makemigrations
       - run:

@@ -19,11 +19,6 @@ services:
     ports:
       - "3306:3306"
     environment:
-    # 下記のDB情報は1章で記述した `local_settings.py` の記述に基づいてへ入力してください
-#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: ${MYSQL_DATABASE}
-#      MYSQL_USER: ${MYSQL_USER}
-#      MYSQL_PASSWORD: {MYSQL_PASSWORD}
     # 一旦ベタ書き
       MYSQL_ROOT_PASSWORD: Xv8eFwmD
       MYSQL_DATABASE: app

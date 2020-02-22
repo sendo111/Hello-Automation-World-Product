@@ -72,6 +72,9 @@ DATABASES = {
         'PASSWORD': 'hogeXv8eFwmD',
         'HOST': 'mysql',
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_app'
+        }
     }
 }
 '''

@@ -1,6 +1,6 @@
-version: 2.1
+version: 2.0
 jobs:
-  build:
+  exec-app-test:
     machine:
       # Ubuntu v14.04
       # https://circleci.com/docs/ja/2.0/configuration-reference/
@@ -8,52 +8,93 @@ jobs:
     steps:
       - run:
           name: docker-compose up
-          command: docker-compose ip -d
-      - run:
-          name: sleep 10 seconds
-          command: sleep 10
+          command: sleep 1
+          # command: docker-compose up -d
+      # - run:
+      #     name: wait 10 seconds to start docker-compose
+      #     command: sleep 10
       - run:
           name: execute django makemigrations
-          command: docker-compose run haw ./manage.py makemigrations
+          command: sleep 1
+          # command: docker-compose run haw ./manage.py makemigrations
       - run:
           name: execute django migrate
-          command: docker-compose run haw ./manage.py migrate
+          command: sleep 1
+          # command: docker-compose run haw ./manage.py migrate
       - run:
           name: execute django unittest
-          command: docker-compose run haw ./manage.py test
+          command: sleep 1
+          # command: docker-compose run haw ./manage.py test
       - run:
           name: execute django flake8
-          command: docker-compose run haw flake8 ./
+          command: sleep 1
+          # command: docker-compose run haw flake8 ./
       - run:
           name: docker-compose down
-          command: docker-compose down
+          command: sleep 1
+          # command: docker-compose down
 
-  deploy:
+  exec-ansible:
     machine:
       image: circleci/classic:edge
     steps:
+      - checkout
+      # コミットログで直近にansibleファイルの更新があれば実行、無ければスキップする処理を書く
+      - run:
+          name: check for ansiblefile update
+          command: sleep 1
+      # TODO: ansible用の機密性の高いファイルの作成処理を書く？
+      - run:
+          name: create file required for playbook exec
+          command: sleep 1
+      # TODO: playbookの実行処理を記載
       - run:
           name: execute ansible playbook
-          command:
+          command: sleep 1
+
+  exec-deploy:
+    machine:
+      image: circleci/classic:edge
+    steps:
+      - checkout
       - run:
-          name: aws certification
-          command:
+          name: authorize-security-group-ingress
+          command: sh .circleci/authorize-security-group-ingress.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "af:4b:db:58:fe:72:9e:8a:b2:8b:e1:d6:b3:83:34:44"
+      # TODO: docker-compose.ymlを準備して動作チェック(動けばdocker-compose downを実施)
       - run:
-        name: execute deploy
-        command:
+          name: check docker-compose running process
+          command: |
+            if [[ `ls | grep docker-compose.yml` && `docker-compose ps -q | wc -l` > 0 ]] ; then
+              docker-compose down
+            fi
+      # TODO: デプロイ処理を記載(GitHubから資材を取得しpip installなどを実行)
+      - run:
+          name: deploy
+          command: ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "hostname"
+      # TODO: コメントアウト外す
+      - run:
+          name: docker-compose up
+          command: sleep 1
+          # command: docker-compose up -d
+      - run:
+          name: revoke-security-group-ingress
+          command: sh .circleci/revoke-security-group-ingress.sh
 
 workflows:
   version: 2
-  buiid-and-deploy:
+  haw-deploy-exec:
     jobs:
-      - build
-      - deploy:
-        # The deployment job is executed after the completion of the execution of the build job.
-        # If requires is not specified, build and deploy jobs are executed in parallel.
-        requires:
-          - build
-        filters:
-          # You can set the timing to execute CIrcleCI for each branch.
-          branches:
-            # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える
-            only: feature/HAW-42
+      - exec-app-test
+      - exec-ansible:
+          requires:
+            - exec-app-test
+      - exec-deploy:
+          requires:
+            - exec-ansible
+          filters:
+            branches:
+              # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える
+              only: feature/HAW-42

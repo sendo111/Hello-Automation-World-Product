@@ -129,3 +129,6 @@ dmypy.json
 ./sql/*
 
 */.DS_Store
+
+Pipfile
+Pipfile.lock

@@ -13,7 +13,7 @@ services:
       - haw
 
   mysql:
-    image: mysql:5.6
+    image: mysql:5.7
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     container_name: mysql
     ports:
@@ -37,7 +37,9 @@ services:
 #[wip]アプリ用ディレクトリ調整中
   haw: #Hello-Automation-Worldの略でこの名称にしています
     build: ./haw
-    command: uwsgi --socket :8000 --module haw.wsgi
+    command: >
+      bash -c "uwsgi --socket :8000 --module haw.wsgi &&
+      python ./manage.py migrate"
     container_name: haw
     volumes:
         - ./haw:/haw

@@ -129,3 +129,4 @@ dmypy.json
 ./sql/*
 
 */.DS_Store
+.envrc

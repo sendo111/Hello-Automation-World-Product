@@ -128,5 +128,12 @@ dmypy.json
 ./mysql/*
 ./sql/*
 
+# mac
 */.DS_Store
+
+# direnv
 .envrc
+
+# pipenv
+Pipfile
+Pipfile.lock

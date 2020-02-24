@@ -37,14 +37,14 @@ http://127.0.0.1:8000/
 ---
 ## docker-compose: アプリ起動方法
 ```
-// ビルド実行
-$ docker-compose build
+// ビルドしてコンテナを作成し、起動
+$ docker-compose up -d --build
 
-// コンテナ起動
-$ docker-compose up
+// コンテナのプロセスを確認
+$ docker-compose ps
 
-// MySQLコンテナに対してマイグレートを実行
-$ docker-compose run haw ./manage.py migrate
+// コンテナを停止し、削除
+$ docker-compose down
 ```
 
 ---

@@ -36,4 +36,4 @@ aws:
       instance_type: t2.micro
       image: ami-07f4cb4629342979c
     key:
-      name: Hello_Auto_Key
+      name: hello_auto_key

@@ -47,3 +47,8 @@
     instance_tags:
       Name: "{{ aws.vpc.ec2.name }}"
   register: ec2
+
+- name: ec2作成完了待ち
+  wait_for:
+    port: 22
+    host: "{{ ec2.instances.0.public_ip }}"

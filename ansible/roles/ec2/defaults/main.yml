@@ -29,11 +29,11 @@ aws:
           cidr_ip: 0.0.0.0/0
         - proto: tcp
           ports:
-            - 443
+            - 80
           cidr_ip: 0.0.0.0/0
     ec2:
       name: Hello_Auto_EC2
       instance_type: t2.micro
       image: ami-07f4cb4629342979c
     key:
-      name: Hello_Auto_Key
+      name: hello_auto_key

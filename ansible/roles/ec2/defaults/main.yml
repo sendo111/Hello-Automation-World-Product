@@ -29,7 +29,7 @@ aws:
           cidr_ip: 0.0.0.0/0
         - proto: tcp
           ports:
-            - 443
+            - 80
           cidr_ip: 0.0.0.0/0
     ec2:
       name: Hello_Auto_EC2

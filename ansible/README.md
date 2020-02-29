@@ -15,7 +15,7 @@ boto,boto3,botocore については最新をインストールすることを推
 
 #### AWS の IAM ユーザー作成
 
-Ansible 及び、CircleCI を実行する IAM ユーザーを作成します。
+Ansible 及び、CircleCI を実行する IAM ユーザーを作成します。  
 作成した IAM ユーザーに対し、PowerUserAccess の IAM ポリシーを設定します。
 
 #### 環境変数の設定
@@ -47,5 +47,6 @@ ssh_args = -o StrictHostKeyChecking=no
 ### Playbook 実行
 
 ```
-# ansible-playbook playbook.yml
+# cd Hello-Automation-World-Product/
+# ansible-playbook ansible/playbook.yml
 ```

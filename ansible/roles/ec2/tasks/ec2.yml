@@ -51,4 +51,4 @@
 - name: ec2作成完了待ち
   wait_for:
     port: 22
-    host: "{{ ec2.instances.0.public_ip }}"
+    host: "{{ ec2.tagged_instances.0.public_ip }}"

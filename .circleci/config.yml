@@ -2,55 +2,25 @@ version: 2.0
 jobs:
   exec-app-test:
     machine:
-      # Ubuntu v14.04
-      # https://circleci.com/docs/ja/2.0/configuration-reference/
-      image: circleci/classic:edge
-    steps:
-      - run:
-          name: docker-compose up
-          command: sleep 1
-          # command: docker-compose up -d
-      # - run:
-      #     name: wait 10 seconds to start docker-compose
-      #     command: sleep 10
-      - run:
-          name: execute django makemigrations
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py makemigrations
-      - run:
-          name: execute django migrate
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py migrate
-      - run:
-          name: execute django unittest
-          command: sleep 1
-          # command: docker-compose run haw ./manage.py test
-      - run:
-          name: execute django flake8
-          command: sleep 1
-          # command: docker-compose run haw flake8 ./
-      - run:
-          name: docker-compose down
-          command: sleep 1
-          # command: docker-compose down
-
-  exec-ansible:
-    machine:
+      # Ubuntu v14.04 (https://circleci.com/docs/ja/2.0/configuration-reference/)
       image: circleci/classic:edge
     steps:
       - checkout
-      # コミットログで直近にansibleファイルの更新があれば実行、無ければスキップする処理を書く
       - run:
-          name: check for ansiblefile update
-          command: sleep 1
-      # TODO: ansible用の機密性の高いファイルの作成処理を書く？
+          name: docker-compose up
+          command: docker-compose up -d --build
       - run:
-          name: create file required for playbook exec
-          command: sleep 1
-      # TODO: playbookの実行処理を記載
+          name: wait 15 seconds for DB to start
+          command: sleep 15
       - run:
-          name: execute ansible playbook
-          command: sleep 1
+          name: execute django unittest
+          command: docker-compose run haw ./manage.py test
+      - run:
+          name: execute django flake8
+          command: docker-compose run haw flake8 ./
+      - run:
+          name: docker-compose down
+          command: docker-compose down
 
   exec-deploy:
     machine:
@@ -62,23 +32,16 @@ jobs:
           command: sh .circleci/authorize-security-group-ingress.sh
       - add_ssh_keys:
           fingerprints:
-            - "af:4b:db:58:fe:72:9e:8a:b2:8b:e1:d6:b3:83:34:44"
-      # TODO: docker-compose.ymlを準備して動作チェック(動けばdocker-compose downを実施)
+            - "18:b2:cd:b5:f3:50:85:c2:6e:9d:d7:36:29:c1:56:da"
       - run:
-          name: check docker-compose running process
-          command: |
-            if [[ `ls | grep docker-compose.yml` && `docker-compose ps -q | wc -l` > 0 ]] ; then
-              docker-compose down
-            fi
-      # TODO: デプロイ処理を記載(GitHubから資材を取得しpip installなどを実行)
+          name: scp deploy.sh
+          command: scp .circleci/deploy.sh ubuntu@13.231.133.169:/home/ubuntu/
       - run:
           name: deploy
-          command: ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "hostname"
-      # TODO: コメントアウト外す
+          command: ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "bash ./deploy.sh"
       - run:
-          name: docker-compose up
-          command: sleep 1
-          # command: docker-compose up -d
+          name: wait 15 seconds for DB to start
+          command: sleep 15
       - run:
           name: revoke-security-group-ingress
           command: sh .circleci/revoke-security-group-ingress.sh
@@ -88,12 +51,9 @@ workflows:
   haw-deploy-exec:
     jobs:
       - exec-app-test
-      - exec-ansible:
-          requires:
-            - exec-app-test
       - exec-deploy:
           requires:
-            - exec-ansible
+            - exec-app-test
           filters:
             branches:
               # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える

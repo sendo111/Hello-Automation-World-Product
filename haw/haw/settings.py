@@ -61,19 +61,28 @@ WSGI_APPLICATION = 'haw.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 
-import pymysql
+import sys
 
-pymysql.install_as_MySQLdb()
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'app',
-        'USER': 'user',
-        'PASSWORD': 'hogeXv8eFwmD',
-        'HOST': 'mysql',
-        'PORT': '3306',
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'app',
+            'USER': 'user',
+            'PASSWORD': 'hogeXv8eFwmD',
+            'HOST': 'mysql',
+            'PORT': '3306',
+        },
+    }
 '''
 DATABASES = {
     'default': {
@@ -82,6 +91,7 @@ DATABASES = {
     }
 }
 '''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

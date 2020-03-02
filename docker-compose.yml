@@ -30,12 +30,13 @@ services:
 
   haw:
     build: ./haw
-    command: >
-      bash -c "uwsgi --socket :8000 --module haw.wsgi &&
-      python ./manage.py migrate"
     container_name: haw
     volumes:
-        - ./haw:/haw
+      - ./haw:/haw
+    command: >
+      bash -c "sleep 15 &&
+      python ./manage.py migrate &&
+      uwsgi --socket :8000 --module haw.wsgi"
     expose:
       - "8000"
     depends_on:

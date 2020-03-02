@@ -1,6 +1,5 @@
 #!/bin/bash
 TARGET_BRANCH=feature/HAW-42
-CURRENT_BRANCH=`git branch --contains`
 
 # clone repository
 if [[ ! `ls | grep Hello-Automation-World-Product` ]]; then
@@ -14,7 +13,8 @@ cd Hello-Automation-World-Product
 git fetch origin
 
 # check current branch
-if [[ ! $CURRENT_BRANCH = $TARGET_BRANCH ]]; then
+CURRENT_BRANCH=`git branch --contains`
+if [[ ! $CURRENT_BRANCH ]]; then
     git checkout $TARGET_BRANCH
 fi
 
@@ -26,8 +26,5 @@ if [[ `ls | grep docker-compose.yml` && `sudo docker-compose ps -q | wc -l` > 0 
     sudo docker-compose down
 fi
 
-# Start docker-compose
+# start docker-compose
 sudo docker-compose up -d --build
-
-#confirm docker-compose startup
-sudo docker-compose ps

@@ -29,22 +29,19 @@ jobs:
       - checkout
       - run:
           name: authorize-security-group-ingress
-          command: sh .circleci/authorize-security-group-ingress.sh
+          command: sh .circleci/authorize-security-group-ingress.sh ${AWS_REGION} ${AWS_SECURITY_GROUP}
       - add_ssh_keys:
           fingerprints:
             - "18:b2:cd:b5:f3:50:85:c2:6e:9d:d7:36:29:c1:56:da"
       - run:
           name: scp deploy.sh
-          command: scp .circleci/deploy.sh ubuntu@13.231.133.169:/home/ubuntu/
+          command: scp .circleci/deploy.sh ${USER_NAME}@${HOST_NAME}:/home/ubuntu/
       - run:
           name: deploy
           command: ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "bash ./deploy.sh"
       - run:
-          name: wait 15 seconds for DB to start
-          command: sleep 15
-      - run:
           name: revoke-security-group-ingress
-          command: sh .circleci/revoke-security-group-ingress.sh
+          command: sh .circleci/revoke-security-group-ingress.sh ${AWS_REGION} ${AWS_SECURITY_GROUP}
 
 workflows:
   version: 2

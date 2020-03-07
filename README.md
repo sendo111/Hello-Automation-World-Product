@@ -23,7 +23,6 @@ $ docker-compose ps
 $ docker-compose down
 
 // ブラウザでアクセス
-```
 http://localhost/
 ```
 

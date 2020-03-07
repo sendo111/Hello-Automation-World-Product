@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET_BRANCH=master
+TARGET_BRANCH=develop
 
 # clone repository
 if [[ ! `ls | grep Hello-Automation-World-Product` ]]; then

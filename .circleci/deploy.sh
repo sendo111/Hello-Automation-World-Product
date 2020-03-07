@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET_BRANCH=feature/HAW-42
+TARGET_BRANCH=master
 
 # clone repository
 if [[ ! `ls | grep Hello-Automation-World-Product` ]]; then

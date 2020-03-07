@@ -52,5 +52,4 @@ workflows:
             - exec-app-test
           filters:
             branches:
-              # TODO: 検証用に作業ブランチを指定しているが、完成時にmasterに置き換える
-              only: feature/HAW-42
+              only: master
